@@ -1,0 +1,90 @@
+{
+  "name": "messenger",
+  "runtime": "nodejs4.3",
+  "description": "Serverless Lambda function for project: imdb-bot",
+  "customName": false,
+  "customRole": false,
+  "handler": "functions/messenger/handler.handler",
+  "timeout": 6,
+  "memorySize": 1024,
+  "authorizer": {},
+  "custom": {
+    "excludePatterns": []
+  },
+  "endpoints": [
+    {
+      "path": "messenger",
+      "method": "POST",
+      "type": "AWS",
+      "authorizationType": "none",
+      "authorizerFunction": false,
+      "apiKeyRequired": false,
+      "requestParameters": {},
+      "requestTemplates": {
+        "application/json": "{\"query\" : $input.json(\"$\")}"
+      },
+      "responses": {
+        "400": {
+          "statusCode": "400"
+        },
+        "default": {
+          "statusCode": "200",
+          "responseParameters": {},
+          "responseModels": {},
+          "responseTemplates": {
+            "application/json": ""
+          }
+        }
+      }
+    },
+    {
+      "path": "messenger",
+      "method": "GET",
+      "type": "AWS",
+      "authorizationType": "none",
+      "authorizerFunction": false,
+      "apiKeyRequired": false,
+      "requestParameters": {
+        "integration.request.querystring.hub.mode": "method.request.querystring.hub.mode",
+        "integration.request.querystring.hub.verify_token": "method.request.querystring.hub.verify_token",
+        "integration.request.querystring.hub.challenge": "method.request.querystring.hub.challenge"
+      },
+      "requestTemplates": {
+        "application/json": {
+          "hub": {
+            "mode": "$input.params('hub.mode')",
+            "verify_token": "$input.params('hub.verify_token')",
+            "challenge": "$input.params('hub.challenge')"
+          }
+        }
+      },
+      "responses": {
+        "400": {
+          "statusCode": "400"
+        },
+        "default": {
+          "statusCode": "200",
+          "responseParameters": {},
+          "responseModels": {
+            "application/json;charset=UTF-8": "Empty",
+            "text/plain": "Empty"
+          },
+          "responseTemplates": {
+            "application/json;charset=UTF-8": "",
+            "text/plain": ""
+          }
+        }
+      }
+    }
+  ],
+  "events": [],
+  "environment": {
+    "SERVERLESS_PROJECT": "${project}",
+    "SERVERLESS_STAGE": "${stage}",
+    "SERVERLESS_REGION": "${region}"
+  },
+  "vpc": {
+    "securityGroupIds": [],
+    "subnetIds": []
+  }
+}

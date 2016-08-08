@@ -10,11 +10,11 @@ var controller = Botkit.facebookbot({
 
 var bot = controller.spawn({});
 
-controller.hears(['^.+?in\ (.+?)$'], 'message_received', function(bot, message) {
+controller.hears(['^.+?in\ (.+?)$'], 'message_received', (bot, message) => {
 
   var movie = message.match[1];
 
-  omdb.search(movie, function(err, movies) {
+  omdb.search(movie, (err, movies) => {
 
     if(err) {
       bot.reply(message, `Sorry, an error occurred searching for "${movie}"`);

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "botkit": "^0.2.2",
+    "natural-language-commander": "^0.1.4",
     "omdb": "^0.6.1"
   }
 }

@@ -11,6 +11,12 @@
   },
   "dependencies": {
     "botkit": "^0.2.2",
-    "omdb": "^0.6.1"
-  }
+    "omdb": "^0.6.1",
+    "snyk": "^1.41.1"
+  },
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
